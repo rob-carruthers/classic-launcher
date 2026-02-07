@@ -1,5 +1,5 @@
 [project]
-name = "launcher"
+name = "classic-launcher"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -10,7 +10,7 @@ dependencies = [
 ]
 
 [project.scripts]
-launcher = "launcher:main"
+classic-launcher = "classic-launcher:main"
 
 [build-system]
 requires = ["uv_build>=0.9.26,<0.10.0"]
