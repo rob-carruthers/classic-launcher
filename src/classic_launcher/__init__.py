@@ -4,8 +4,8 @@ from pathlib import Path
 
 from xdg_base_dirs import xdg_data_dirs, xdg_data_home
 
-from .config import get_config
-from .datatypes import DesktopEntry
+from classic_launcher.config import get_config
+from classic_launcher.datatypes import DesktopEntry
 
 logger = logging.getLogger(__name__)
 

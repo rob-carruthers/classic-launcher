@@ -5,8 +5,8 @@ from pathlib import Path
 
 from xdg_base_dirs import xdg_config_home
 
-from .const import APP_CONFIG
-from .datatypes import Category, LauncherConfig
+from classic_launcher.const import APP_CONFIG
+from classic_launcher.datatypes import Category, LauncherConfig
 
 
 def get_config() -> LauncherConfig:
