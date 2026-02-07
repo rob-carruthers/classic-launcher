@@ -17,12 +17,14 @@
 
           glib
           gobject-introspection
+          gsettings-desktop-schemas
 
           gtk4
           cairo
           pango
           graphene
           gdk-pixbuf
+          libadwaita
         ];
 
         env = {
@@ -33,7 +35,16 @@
             pkgs.pango
             pkgs.graphene
             pkgs.gdk-pixbuf
+            pkgs.libadwaita
           ];
+
+          XDG_DATA_DIRS = pkgs.lib.makeSearchPath "share" [
+            pkgs.gtk4
+            pkgs.libadwaita
+            pkgs.gsettings-desktop-schemas
+          ];
+
+          GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}";
         };
       };
     };
