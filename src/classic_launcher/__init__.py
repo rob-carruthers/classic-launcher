@@ -5,7 +5,7 @@ from pathlib import Path
 from xdg_base_dirs import xdg_data_dirs, xdg_data_home
 
 from .config import get_config
-from .types import DesktopEntry
+from .datatypes import DesktopEntry
 
 logger = logging.getLogger(__name__)
 
