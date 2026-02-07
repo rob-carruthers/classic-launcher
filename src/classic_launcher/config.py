@@ -5,10 +5,8 @@ from pathlib import Path
 
 from xdg_base_dirs import xdg_config_home
 
+from .const import APP_CONFIG
 from .datatypes import Category, LauncherConfig
-
-APP_NAME = "classic-launcher"
-APP_CONFIG = "classic-launcher.toml"
 
 
 def get_config() -> LauncherConfig:
