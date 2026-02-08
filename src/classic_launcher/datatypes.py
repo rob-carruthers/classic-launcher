@@ -15,7 +15,7 @@ class Category:
 @dataclass
 class LauncherConfig:
     categories: frozenset[Category]
-    stylesheet_file: Path
+    stylesheet_file: str
 
 
 class LocalizedAttrsBase:

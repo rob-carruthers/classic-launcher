@@ -39,7 +39,7 @@ def get_config() -> LauncherConfig:
 
     config_dict["categories"] = frozenset(categories_config)
 
-    return LauncherConfig(**config_dict, stylesheet_file=stylesheet_file)
+    return LauncherConfig(**config_dict, stylesheet_file=str(stylesheet_file))
 
 
 APP_CONFIG = get_config()
