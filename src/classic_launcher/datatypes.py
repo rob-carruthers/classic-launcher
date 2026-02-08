@@ -1,6 +1,9 @@
 import re
 from dataclasses import dataclass
-from typing import final
+from typing import TYPE_CHECKING, final
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 @dataclass(frozen=True)
@@ -12,6 +15,7 @@ class Category:
 @dataclass
 class LauncherConfig:
     categories: frozenset[Category]
+    stylesheet_file: Path
 
 
 class LocalizedAttrsBase:

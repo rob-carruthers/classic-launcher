@@ -4,7 +4,7 @@ from pathlib import Path
 
 from xdg_base_dirs import xdg_data_dirs, xdg_data_home
 
-from classic_launcher.config import get_config
+from classic_launcher.config import APP_CONFIG
 from classic_launcher.datatypes import DesktopEntry
 
 logger = logging.getLogger(__name__)
@@ -19,8 +19,6 @@ def main() -> None:
             parser = configparser.ConfigParser(interpolation=None)
             parser.read(file)
             desktop_entry = DesktopEntry(**parser["Desktop Entry"])  # ty:ignore[invalid-argument-type]
-
-    launcher_config = get_config()
 
 
 if __name__ == "__main__":
