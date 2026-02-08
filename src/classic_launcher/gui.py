@@ -5,14 +5,14 @@ import gi
 from classic_launcher.config import APP_CONFIG
 from classic_launcher.const import APP_ID
 
-gi.require_version("Gtk", "4.0")
-gi.require_version("Adw", "1")
-from gi.repository import Adw, Gdk, Gtk  # ty:ignore[unresolved-import]  # noqa: E402
+gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
+from gi.repository import Gdk, Gtk  # ty:ignore[unresolved-import]  # noqa: E402
 
 css_provider = Gtk.CssProvider()
 css_provider.load_from_path(APP_CONFIG.stylesheet_file)
-Gtk.StyleContext.add_provider_for_display(
-    Gdk.Display.get_default(),
+Gtk.StyleContext.add_provider_for_screen(
+    Gdk.Screen.get_default(),
     css_provider,
     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
 )
@@ -21,30 +21,33 @@ Gtk.StyleContext.add_provider_for_display(
 class MainWindow(Gtk.ApplicationWindow):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.set_default_size(600, 250)
+        self.set_default_size(250, 600)
         self.set_title("Classic Launcher")
-        self.box1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self.set_child(self.box1)
+        self.set_resizable(False)
 
-        self.button = Gtk.Button(label="Hello")
-        self.label = Gtk.Label(label="Hi!")
-        self.label.set_css_classes(["title"])
-        self.box1.append(self.button)
-        self.box1.append(self.label)
-        self.button.connect("clicked", self.hello)
+        self.system_actions_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
+        self.fill_system_action_items()
+        self.add(self.system_actions_box)
 
-    def hello(self, button):
-        print("Hi!")
+    def fill_system_action_items(self):
+        items = ["Run...", "Shut down..."]
+
+        for label in items:
+            button = Gtk.Button(label=label)
+            button.set_relief(Gtk.ReliefStyle.NORMAL)
+            button.set_can_focus(True)
+
+            self.system_actions_box.pack_start(button, expand=False, fill=True, padding=0)
 
 
-class MyApp(Adw.Application):
+class MyApp(Gtk.Application):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.connect("activate", self.on_activate)
 
     def on_activate(self, app):
         self.win = MainWindow(application=app)
-        self.win.present()
+        self.win.show_all()
 
 
 app = MyApp(application_id=APP_ID)

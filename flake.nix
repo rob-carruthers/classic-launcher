@@ -19,28 +19,25 @@
           gobject-introspection
           gsettings-desktop-schemas
 
-          gtk4
+          gtk3
           cairo
           pango
           graphene
           gdk-pixbuf
-          libadwaita
         ];
 
         env = {
           GI_TYPELIB_PATH = pkgs.lib.makeSearchPath "lib/girepository-1.0" [
             pkgs.gobject-introspection
             pkgs.glib
-            pkgs.gtk4
+            pkgs.gtk3
             pkgs.pango
             pkgs.graphene
             pkgs.gdk-pixbuf
-            pkgs.libadwaita
           ];
 
           XDG_DATA_DIRS = pkgs.lib.makeSearchPath "share" [
-            pkgs.gtk4
-            pkgs.libadwaita
+            pkgs.gtk3
             pkgs.gsettings-desktop-schemas
           ];
 
