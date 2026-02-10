@@ -27,8 +27,8 @@ def css_setup() -> None:
 
 
 class MainWindow(Gtk.ApplicationWindow):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
+    def __init__(self, application: Gtk.Application) -> None:
+        super().__init__(application=application)
         self.set_default_size(250, 600)
         self.set_title("Classic Launcher")
         self.set_resizable(False)
@@ -49,11 +49,11 @@ class MainWindow(Gtk.ApplicationWindow):
 
 
 class MyApp(Gtk.Application):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, application_id: str):
+        super().__init__(application_id=application_id)
         self.connect("activate", self.on_activate)
 
-    def on_activate(self, app):
+    def on_activate(self, app: Gtk.Application) -> None:
         self.win = MainWindow(application=app)
         self.win.show_all()
 
