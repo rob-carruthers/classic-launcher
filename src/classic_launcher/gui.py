@@ -1,3 +1,5 @@
+"""GUI for classic-launcher."""
+
 import sys
 
 import gi
@@ -26,8 +28,11 @@ def css_setup() -> None:
     )
 
 
-class MainWindow(Gtk.ApplicationWindow):
+class LauncherWindow(Gtk.ApplicationWindow):
+    """GTK3 window for launcher app."""
+
     def __init__(self, application: Gtk.Application) -> None:
+        """Initialise the window."""
         super().__init__(application=application)
         self.set_default_size(250, 600)
         self.set_title("Classic Launcher")
@@ -37,7 +42,7 @@ class MainWindow(Gtk.ApplicationWindow):
         self.fill_system_action_items()
         self.add(self.system_actions_box)
 
-    def fill_system_action_items(self):
+    def fill_system_action_items(self) -> None:  # noqa: D102
         items = ["Run...", "Shut down..."]
 
         for label in items:
@@ -51,16 +56,20 @@ class MainWindow(Gtk.ApplicationWindow):
             self.system_actions_box.pack_start(button, expand=False, fill=True, padding=0)
 
 
-class MyApp(Gtk.Application):
-    def __init__(self, application_id: str):
+class LauncherApp(Gtk.Application):
+    """Main launcher app class."""
+
+    def __init__(self, application_id: str) -> None:
+        """Initialise the application."""
         super().__init__(application_id=application_id)
         self.connect("activate", self.on_activate)
 
     def on_activate(self, app: Gtk.Application) -> None:
-        self.win = MainWindow(application=app)
+        """Load LauncherWindow instance when application is activated/instantiated."""
+        self.win = LauncherWindow(application=app)
         self.win.show_all()
 
 
 css_setup()
-app = MyApp(application_id=APP_ID)
+app = LauncherApp(application_id=APP_ID)
 app.run(sys.argv)
