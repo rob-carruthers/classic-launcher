@@ -7,15 +7,23 @@ from classic_launcher.const import APP_ID
 
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
-from gi.repository import Gdk, Gtk  # ty:ignore[unresolved-import]  # noqa: E402
+from gi.repository import Gdk, Gtk  # noqa: E402
 
-css_provider = Gtk.CssProvider()
-css_provider.load_from_path(APP_CONFIG.stylesheet_file)
-Gtk.StyleContext.add_provider_for_screen(
-    Gdk.Screen.get_default(),
-    css_provider,
-    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-)
+
+def css_setup() -> None:
+    """Set up css provider using css file specified in APP_CONFIG."""
+    css_provider = Gtk.CssProvider()
+    css_provider.load_from_path(APP_CONFIG.stylesheet_file)
+    screen = Gdk.Screen.get_default()
+    if screen is None:
+        sys.exit()
+        return
+
+    Gtk.StyleContext.add_provider_for_screen(
+        screen,
+        css_provider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+    )
 
 
 class MainWindow(Gtk.ApplicationWindow):
@@ -50,5 +58,6 @@ class MyApp(Gtk.Application):
         self.win.show_all()
 
 
+css_setup()
 app = MyApp(application_id=APP_ID)
 app.run(sys.argv)
