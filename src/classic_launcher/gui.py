@@ -44,6 +44,9 @@ class MainWindow(Gtk.ApplicationWindow):
             button = Gtk.Button(label=label)
             button.set_relief(Gtk.ReliefStyle.NORMAL)
             button.set_can_focus(True)
+            button.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK)
+
+            button.connect("enter-notify-event", print)
 
             self.system_actions_box.pack_start(button, expand=False, fill=True, padding=0)
 
